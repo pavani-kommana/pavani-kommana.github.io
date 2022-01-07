@@ -6,6 +6,7 @@ public class obstacles : MonoBehaviour
 {
 
     public GameObject player;
+    public GameObject blast;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -20,13 +21,19 @@ public class obstacles : MonoBehaviour
     }
    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.transform.tag=="border")
+        if (collision.transform.tag == "border")
         {
             Destroy(this.gameObject);
         }
-        else if(collision.transform.tag =="Player")
+        else if (collision.transform.tag == "Player")
         {
             Destroy(player.gameObject);
+        }
+        else if (collision.transform.tag == "bullet")
+        {
+            Instantiate(blast,this.transform.position,Quaternion.identity);
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }
